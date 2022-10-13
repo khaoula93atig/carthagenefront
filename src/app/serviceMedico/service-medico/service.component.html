@@ -1,0 +1,43 @@
+<app-ajout-service></app-ajout-service>
+
+<!-- debut de la liste -->
+<div class="pagetitle">
+    <h1>Liste des services </h1>
+  </div><!-- End Page Title -->
+
+<div class="card">
+    <div class="card-body">
+
+      <div class="search-bar pull-right">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+          <input type="text" name="query" placeholder="Filter" title="Enter search keyword" (keyup)="applyFilter($event)">
+        </form>
+      </div>
+    
+      <table mat-table class="table table-sm" [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> # </th>
+          <td mat-cell *matCellDef="let index = index"> {{index+1}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="categorie">
+          <th mat-header-cell *matHeaderCellDef> Categorie </th>
+          <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
+</div>

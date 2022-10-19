@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { MedecinComponent } from './medecin/medecin/medecin.component';
+import { NewsComponent } from './news/news/news.component';
 import { ServiceComponent } from './serviceMedico/service-medico/service.component';
 
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'dash',component:DashboardComponent,children:[
   {path:'medecin',component:MedecinComponent},
   {path:'service',component:ServiceComponent},
+  {path:'news',component:NewsComponent},
 ]}
 ];
 

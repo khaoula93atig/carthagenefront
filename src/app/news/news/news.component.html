@@ -1,0 +1,40 @@
+<div class="row auto-letf">
+    <app-ajout-news></app-ajout-news>
+</div>
+<div class="row">
+<h3 class="mb-3" style="color:#103073; font-weight: bold;">Liste des événements</h3>
+<div class="row" >
+<mat-card class="col-6 border pr-5" *ngFor="let new of obs |async">
+    <mat-card-title-group>
+      <mat-card-subtitle>{{new.dateNews}}</mat-card-subtitle>
+      <mat-card-title class="titre">{{ new.title}}</mat-card-title>
+      <img mat-card-sm-image src="{{new.fullname}}" >
+    </mat-card-title-group>
+    <mat-card-actions>
+        <a class=" ml-2" data-bs-toggle="modal" data-bs-target="#basicModal" (click)="getNews(new.idNews)">Supprimer</a>
+      </mat-card-actions>
+  </mat-card>
+</div>
+<mat-paginator [pageSizeOptions]="[8, 16, 32]"></mat-paginator>
+</div>
+
+<!--Suppression news-->
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Supprimer un événement</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Etes-vous sur de supprimer l'événement:<br>
+           " {{new.title}} "?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+          <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="delete()" >Oui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Suppression news-->

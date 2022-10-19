@@ -22,7 +22,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { ServiceComponent } from './serviceMedico/service-medico/service.component';
-import { AjoutServiceComponent } from './serviceMedico/ajout-service/ajout-service.component'
+import { AjoutServiceComponent } from './serviceMedico/ajout-service/ajout-service.component';
+import { NewsComponent } from './news/news/news.component'
+import { MatCardModule, MatCardTitleGroup } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { AjoutNewsComponent } from './news/ajout-news/ajout-news.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -37,7 +42,9 @@ import { AjoutServiceComponent } from './serviceMedico/ajout-service/ajout-servi
     AjoutMedecinComponent,
     MedecinComponent,
     ServiceComponent,
-    AjoutServiceComponent
+    AjoutServiceComponent,
+    NewsComponent,
+    AjoutNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +58,9 @@ import { AjoutServiceComponent } from './serviceMedico/ajout-service/ajout-servi
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatGridListModule
     
   ],
   providers: [],

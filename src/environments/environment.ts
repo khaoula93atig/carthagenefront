@@ -8,6 +8,7 @@ export const environment = {
   URLCategorie: '/api/services/categorie',
   URLMedecin: '/api/medecins',
   URLService: '/api/services',
+  UrlNews:'/api/news'
 };
 
 /*

@@ -57,7 +57,6 @@ export class AjoutMedecinComponent implements OnInit {
     })
   }
   save(monform:NgForm){
-    console.log(monform.value)
     this.medecinService.ajouter(monform.value).subscribe(data=>{
       if(data['response']=="OK"){
         this.toastr.success('Success', 'Ajout avec succés');

@@ -84,7 +84,6 @@ export class MedecinComponent implements OnInit {
         this.medecin=i
       }
     }
-    console.log(this.medecin)
   }
 
   getSpecilites(){
@@ -103,7 +102,6 @@ export class MedecinComponent implements OnInit {
   getbySpecilitesChirurgicalese(){
     this.specialiteService.ListeBySpecialiteMedicale(2).subscribe(res=>{
       this.specialitesChirurgicales=res;
-      console.log('test',this.specialitesChirurgicales)
      
     })
   }

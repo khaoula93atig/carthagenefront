@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { MedecinComponent } from './medecin/medecin/medecin.component';
 import { NewsComponent } from './news/news/news.component';
+import { ListRdvComponent } from './RDV/list-rdv/list-rdv.component';
 import { ServiceComponent } from './serviceMedico/service-medico/service.component';
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'medecin',component:MedecinComponent},
   {path:'service',component:ServiceComponent},
   {path:'news',component:NewsComponent},
+  {path:'RDV',component:ListRdvComponent},
 ]}
 ];
 

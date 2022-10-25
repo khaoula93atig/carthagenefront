@@ -28,6 +28,9 @@ import { MatCardModule, MatCardTitleGroup } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { AjoutNewsComponent } from './news/ajout-news/ajout-news.component';
 import { DatePipe } from '@angular/common';
+import { ListRdvComponent } from './RDV/list-rdv/list-rdv.component';
+import { StatusRdvComponent } from './RDV/status-rdv/status-rdv.component';
+import {MatIconModule} from '@angular/material/icon'
 
 
 
@@ -44,7 +47,9 @@ import { DatePipe } from '@angular/common';
     ServiceComponent,
     AjoutServiceComponent,
     NewsComponent,
-    AjoutNewsComponent
+    AjoutNewsComponent,
+    ListRdvComponent,
+    StatusRdvComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ import { DatePipe } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
     
   ],
   providers: [],

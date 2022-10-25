@@ -19,4 +19,7 @@ export class ServiceService {
   public ajouter(service:any):Observable<any>{
     return this.http.post<any>(environment.URLService+'/save',service)
   }
+  public getbyid(id:string):Observable<Services>{
+    return this.http.get<Services>(environment.URLService+'/getbyid/'+id)
+  }
 }

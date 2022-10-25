@@ -1,0 +1,155 @@
+<!-- debut de la liste -->
+<div class="pagetitle">
+    <h1>Liste des Rendez-Vous </h1>
+  </div><!-- End Page Title -->
+
+<div class="card">
+    <div class="card-body">
+
+      <div class="search-bar pull-right">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+          <input type="text" name="query" placeholder="Filter" title="Enter search keyword" (keyup)="applyFilter($event)">
+        </form>
+      </div>
+      
+      <table mat-table class="table table-hover" [dataSource]="dataSource" multiTemplateDataRows>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> # </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="patient">
+          <th mat-header-cell *matHeaderCellDef> Patient </th>
+          <td mat-cell *matCellDef="let element"> {{element.nom}} {{element.prenom}}
+              <span class="m-1" *ngIf="!element.isExpanded"><i class="bi bi-caret-down-fill"></i></span>
+              <span class="m-1" *ngIf="element.isExpanded "><i class="bi bi-caret-up-fill"></i></span>
+            </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="contact patient">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length-1">
+            <div class="example-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+                <span class="expanded-contents"> 
+                    tel : {{element.numeroTel}} <br> 
+                    email: {{element.email}}  <br>
+                    date de naissance: {{element.dateNaissance}}
+                </span>
+            </div>
+        </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="medecin">
+            <th mat-header-cell *matHeaderCellDef> Medecin </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomMedecin}}  </td>
+          </ng-container>
+    
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="spécialité">
+          <th mat-header-cell *matHeaderCellDef> Spécialité </th>
+          <td mat-cell *matCellDef="let element"> {{element.specialite}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="service">
+            <th mat-header-cell *matHeaderCellDef> Service </th>
+            <td mat-cell *matCellDef="let element"> {{element.serviceId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> date </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateRdv}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element" class="fw-bold" [style.color]="getcolor(element)">
+                
+                <i *ngIf="element.status == 'confirme'" class="bi bi-check-circle" style="font-size:20px;"></i>
+               
+               
+                <i  *ngIf="element.status == 'En cours'"class="bi bi-hourglass-split" style="font-size:20px;"></i>
+                <i *ngIf="element.status == 'annuler'" class="bi bi-x-circle-fill" style="font-size:20px;"></i>
+            </td>  
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element" class="fw-bold" >
+                
+                <button class="btn btn-success btn-sm m-1" data-bs-toggle="modal" data-bs-target="#verticalycentered1" (click)="getRdv(element)" >
+                    <i class="bi bi-check2"></i>
+                </button>
+               
+               
+                <button class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#basicModal" (click)="getRdv(element)">
+                    <i class="bi bi-x"></i>
+                    </button>
+            </td>
+                
+          </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"  
+              [class.example-expanded-row]="row.isExpanded" 
+              (click)="row.isExpanded = !row.isExpanded"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: ['contact patient']" class="example-detail-row"></tr>
+      </table>
+
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
+</div>
+
+<!-- confirmer un rendez vous -->
+<div class="modal fade" id="verticalycentered1" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmer un Rendez-Vous</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Etes-vous sur de Confirmer le rendez-vous?
+        <div class="col-md-12">
+            <label for="inputName6" class="form-label">Message à envoyer au patient</label>
+            <input type="text" class="form-control" id="inputName6" [(ngModel)]="descriptionConfirmation" name="description">
+          </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+          <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="confirmer()" >Oui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- fin confirmation-->
+
+<!--Suppression medecin -->
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Annuler</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Etes-vous sur d'annuler le rendez-vous?
+        <div class="col-md-10 m-2">
+            <label for="inputName7" class="form-label">Message à envoyer au patient</label>
+            <input type="text" class="form-control" id="inputName7" [(ngModel)]="descriptionAnnuler" name="description1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+          <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="annuler()" >Oui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Suppression medecin-->
+
+  

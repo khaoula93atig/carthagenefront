@@ -16,6 +16,10 @@ export class MedecinService {
     return this.http.get<Medecins[]>(environment.URLMedecin);
   }
 
+  public getbyid(id:string): Observable<Medecins>{
+    return this.http.get<Medecins>(environment.URLMedecin+'/getbyid/'+id);
+  }
+
   public ajouter(medecins:any):Observable<any>{
     return this.http.post<any>(environment.URLMedecin+'/save',medecins)
   }

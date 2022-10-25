@@ -27,7 +27,6 @@ export class ServiceComponent implements OnInit {
   }
   getAllSerivces(){
     this.servicesService.ListeServices().subscribe(data=>{
-      console.log(data)
       this.dataSource.data=data;
       for(let cat of this.dataSource.data){
 

@@ -59,7 +59,7 @@
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" [routerLink]="['/dash/news']">
           <i class="bi bi-layout-text-window-reverse"></i><span>Actualités</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <!--<ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="tables-general.html">
               <i class="bi bi-circle"></i><span>General Tables</span>
@@ -70,7 +70,7 @@
               <i class="bi bi-circle"></i><span>Data Tables</span>
             </a>
           </li>
-        </ul>
+        </ul>-->
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
@@ -121,7 +121,7 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" [routerLink]="['/dash/RDV']">
           <i class="bi bi-person"></i>
           <span>Rendez-vous</span>
         </a>

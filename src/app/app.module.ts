@@ -11,7 +11,7 @@ import { ClarityModule, ClrIconModule } from '@clr/angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AjoutMedecinComponent } from './medecin/ajout-medecin/ajout-medecin.component';
 import { MedecinComponent } from './medecin/medecin/medecin.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule} from '@angular/forms'
 import { ToastrModule } from 'ngx-toastr';
 
@@ -31,6 +31,7 @@ import { DatePipe } from '@angular/common';
 import { ListRdvComponent } from './RDV/list-rdv/list-rdv.component';
 import { StatusRdvComponent } from './RDV/status-rdv/status-rdv.component';
 import {MatIconModule} from '@angular/material/icon'
+import{JwtInterceptor} from './login/jwt.interceptor'
 
 
 
@@ -69,7 +70,9 @@ import {MatIconModule} from '@angular/material/icon'
     MatIconModule
     
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

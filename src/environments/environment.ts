@@ -9,7 +9,9 @@ export const environment = {
   URLMedecin: '/api/medecins',
   URLService: '/api/services',
   UrlNews:'/api/news',
-  UrlRendezVous:'/api/rendezVous'
+  UrlRendezVous:'/api/rendezVous',
+  URLAuth:'/api/auth',
+  URLUser:'/api/user'
 };
 
 /*

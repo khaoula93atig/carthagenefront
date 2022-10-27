@@ -36,11 +36,10 @@
               "src/assets/vendor/simple-datatables/style.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/@popperjs/core/dist/umd/popper.min.js",
+  "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/main.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
-    
+              "node_modules/jquery/dist/jquery.min.js",
               "src/assets/vendor/tinymce/tinymce.min.js",
               "src/assets/vendor/quill/quill.min.js",
               "src/assets/vendor/simple-datatables/simple-datatables.js",

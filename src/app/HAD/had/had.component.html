@@ -1,6 +1,6 @@
 <!-- debut de la liste -->
 <div class="pagetitle">
-    <h1>Liste des Rendez-Vous </h1>
+    <h1>Liste des demandes d'hospitalisation à domicile </h1>
   </div><!-- End Page Title -->
 
 <div class="card">
@@ -23,7 +23,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="patient">
           <th mat-header-cell *matHeaderCellDef> Patient </th>
-          <td mat-cell *matCellDef="let element"> {{element.nom}} {{element.prenom}}
+          <td mat-cell *matCellDef="let element"> {{element.idPatient}}
               <span class="m-1" *ngIf="!element.isExpanded"><i class="bi bi-caret-down-fill"></i></span>
               <span class="m-1" *ngIf="element.isExpanded "><i class="bi bi-caret-up-fill"></i></span>
             </td>
@@ -31,44 +31,31 @@
     
         <!-- Weight Column -->
         <ng-container matColumnDef="contact patient">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length-1">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
             <div class="example-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
                 <span class="expanded-contents"> 
                     tel : {{element.numeroTel}} <br> 
-                    email: {{element.email}}  <br>
-                    date de naissance: {{element.dateNaissance}}
+                    adresse: {{element.address}}  <br>
                 </span>
             </div>
         </td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="medecin">
-            <th mat-header-cell *matHeaderCellDef> Medecin </th>
-            <td mat-cell *matCellDef="let element"> {{element.nomMedecin}}  </td>
-          </ng-container>
-    
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="spécialité">
-          <th mat-header-cell *matHeaderCellDef> Spécialité </th>
-          <td mat-cell *matCellDef="let element"> {{element.specialite}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="service">
             <th mat-header-cell *matHeaderCellDef> Service </th>
-            <td mat-cell *matCellDef="let element"> {{element.serviceId}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.besoin}}  </td>
           </ng-container>
-
+    
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef> date </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateRdv}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.dateRdvHad}} </td>
           </ng-container>
 
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element" class="fw-bold" [style.color]="getcolor(element)">
-                
-                <i *ngIf="element.status == 'confirme'" class="bi bi-check-circle" style="font-size:20px;"></i>
+                <i *ngIf="element.status == 'confirmer'" class="bi bi-check-circle" style="font-size:20px;"></i>
                
                
                 <i  *ngIf="element.status == 'En cours'"class="bi bi-hourglass-split" style="font-size:20px;"></i>
@@ -80,12 +67,12 @@
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element" class="fw-bold" >
                 
-                <button class="btn btn-success btn-sm m-1" data-bs-toggle="modal" data-bs-target="#verticalycentered1" (click)="getRdv(element)" >
+                <button class="btn btn-success btn-sm m-1" data-bs-toggle="modal" data-bs-target="#verticalycentered1" (click)="getHad(element)" >
                     <i class="bi bi-check2"></i>
                 </button>
                
                
-                <button class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#basicModal" (click)="getRdv(element)">
+                <button class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#basicModal" (click)="getHad(element)">
                     <i class="bi bi-x"></i>
                     </button>
             </td>
@@ -104,16 +91,16 @@
     <mat-paginator [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
 </div>
 
-<!-- confirmer un rendez vous -->
+<!-- confirmer Had -->
 <div class="modal fade" id="verticalycentered1" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="color: #103073;">Confirmer un Rendez-Vous</h5>
+          <h5 class="modal-title" style="color: #103073;">Confirmer la demande d'HAD</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Etes-vous sur de Confirmer le rendez-vous?
+          Etes-vous sur de confirmer la demande?
         <div class="col-md-12">
             <label for="inputName6" class="form-label">Message à envoyer au patient</label>
             <textarea class="form-control" placeholder="Address" id="floatingTextarea" [(ngModel)]="descriptionConfirmation" style="height: 100px;"></textarea>
@@ -126,18 +113,18 @@
       </div>
     </div>
   </div>
-  <!-- fin confirmation-->
+  <!--fin confirmation-->
 
-<!--Suppression rdv -->
+<!--Suppression had -->
 <div class="modal fade" id="basicModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="color: #103073;">Annuler</h5>
+          <h5 class="modal-title" style="color: #103073;">Annuler la demande d'HAD</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Etes-vous sur d'annuler le rendez-vous?
+          Etes-vous sur d'annuler la demande?
         <div class="col-md-10 m-2">
             <label for="inputName7" class="form-label">Message à envoyer au patient</label>
             <textarea class="form-control" placeholder="Address" id="floatingTextarea1" [(ngModel)]="descriptionAnnuler" style="height: 100px;"></textarea>
@@ -150,6 +137,6 @@
       </div>
     </div>
   </div>
-  <!-- End Suppression medecin-->
+ <!-- End Suppression-->
 
   

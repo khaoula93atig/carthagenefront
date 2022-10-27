@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../login/service/token-storage.service';
 import { UserService } from '../login/service/user.service';
+import { createPopper } from '@popperjs/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,9 @@ import { UserService } from '../login/service/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService:UserService,private tokenService: TokenStorageService) { }
+  constructor(private userService:UserService,
+    private tokenService: TokenStorageService,
+    private router:Router) { }
 
   user:any
   ngOnInit(): void {
@@ -20,5 +24,10 @@ export class HeaderComponent implements OnInit {
   getUser(){
     this.userService.getuserById(this.tokenService.getUser().id).subscribe(data=>{this.user=data
     console.log(this.user)})
+  }
+
+  logout(){
+    this.tokenService.logout()
+this.router.navigateByUrl('')
   }
 }

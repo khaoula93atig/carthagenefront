@@ -9,6 +9,7 @@ import { ListRdvComponent } from './RDV/list-rdv/list-rdv.component';
 import { ServiceComponent } from './serviceMedico/service-medico/service.component';
 import {AuthGuard} from './guards/AuthGuard'
 import {AfterAuthGuard} from './guards/AfterAuthGuard'
+import { HadComponent } from './HAD/had/had.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'service',component:ServiceComponent},
   {path:'news',component:NewsComponent},
   {path:'RDV',component:ListRdvComponent},
+  {path:'HAD',component:HadComponent},
 ]}
 ];
 

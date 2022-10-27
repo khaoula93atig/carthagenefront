@@ -11,7 +11,8 @@ export const environment = {
   UrlNews:'/api/news',
   UrlRendezVous:'/api/rendezVous',
   URLAuth:'/api/auth',
-  URLUser:'/api/user'
+  URLUser:'/api/user',
+  URLhad:'/api/had'
 };
 
 /*

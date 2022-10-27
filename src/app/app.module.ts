@@ -31,7 +31,8 @@ import { DatePipe } from '@angular/common';
 import { ListRdvComponent } from './RDV/list-rdv/list-rdv.component';
 import { StatusRdvComponent } from './RDV/status-rdv/status-rdv.component';
 import {MatIconModule} from '@angular/material/icon'
-import{JwtInterceptor} from './login/jwt.interceptor'
+import{JwtInterceptor} from './login/jwt.interceptor';
+import { HadComponent } from './HAD/had/had.component'
 
 
 
@@ -50,7 +51,8 @@ import{JwtInterceptor} from './login/jwt.interceptor'
     NewsComponent,
     AjoutNewsComponent,
     ListRdvComponent,
-    StatusRdvComponent
+    StatusRdvComponent,
+    HadComponent
   ],
   imports: [
     BrowserModule,

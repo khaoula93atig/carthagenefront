@@ -48,3 +48,8 @@ table {
   .btn .btn-primary{
     background-color: #103073 ;
   }
+
+  .rowaffiche{
+    padding-top: 10px;
+    padding-bottom: 0px;
+  }

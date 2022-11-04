@@ -22,4 +22,7 @@ export class ServiceService {
   public getbyid(id:string):Observable<Services>{
     return this.http.get<Services>(environment.URLService+'/getbyid/'+id)
   }
+  public getbycategorie(id:number):Observable<Services[]>{
+    return this.http.get<Services[]>(environment.URLService+'/categorie/'+id)
+  }
 }

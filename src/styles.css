@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bootstrap';
 @import "~font-awesome";
 @import '~ngx-toastr/toastr';
 
@@ -243,7 +244,7 @@
     margin-bottom: 30px;
     border: none;
     border-radius: 5px;
-    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+   /* box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);*/
   }
   
   .card-header,
@@ -255,7 +256,7 @@
   }
   
   .card-title {
-    padding: 20px 0 15px 0;
+    padding: 0px 0 0px 0;
     font-size: 18px;
     font-weight: 500;
     color: #012970;
@@ -387,9 +388,7 @@
   }
   
   .logo img {
-    max-height: 50px;
-    margin-right: 6px;
-    min-width: 200px;
+    max-height: 62px;
   }
   
   .logo span {
@@ -402,7 +401,7 @@
   .header {
     transition: all 0.5s;
     z-index: 997;
-    height: 60px;
+    height: 70px;
     box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
     background-color: #fff;
     padding-left: 20px;
@@ -535,8 +534,9 @@
   
   .header-nav .notifications .notification-item h4 {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: 5px;
+    margin-left: 20px;
   }
   
   .header-nav .notifications .notification-item p {
@@ -622,7 +622,7 @@
   --------------------------------------------------------------*/
   .sidebar {
     position: fixed;
-    top: 60px;
+    top: 68px;
     left: 0;
     bottom: 0;
     width: 300px;
@@ -717,7 +717,7 @@
   .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #4154f1;
+    color: #9F8900;
   }
   
   .sidebar-nav .nav-link.collapsed {
@@ -730,12 +730,12 @@
   }
   
   .sidebar-nav .nav-link:hover {
-    color: #4154f1;
+    color: #9F8900  ;
     background: #f6f9ff;
   }
   
   .sidebar-nav .nav-link:hover i {
-    color: #4154f1;
+    color: #9F8900  ;
   }
   
   .sidebar-nav .nav-link .bi-chevron-down {

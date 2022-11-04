@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import {News} from '../../models/News'
 import {NewsService} from '../../services/news.service'
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-news',
@@ -16,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NewsComponent implements OnInit {
 
+  @Input()
+color: ThemePalette
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<News>
@@ -25,6 +28,21 @@ export class NewsComponent implements OnInit {
 
   news:News[]=[]
   new=new News()
+  image:any
+  dutchRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length == 0 || pageSize == 0) { return `0 de ${length}`; }
+    
+    length = Math.max(length, 0);
+  
+    const startIndex = page * pageSize;
+  
+    // If the start index exceeds the list length, do not try and fix the end index to the end.
+    const endIndex = startIndex < length ?
+        Math.min(startIndex + pageSize, length) :
+        startIndex + pageSize;
+  
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  }
 
 
   constructor(private newsService:NewsService,
@@ -52,21 +70,18 @@ export class NewsComponent implements OnInit {
   }
 
 
+  
   AllNews(){
     this.newsService.ListeNews().subscribe(data=>{
       let res:any[];
       res=data;
       {res.map((i)=>{i.fullname=environment.UrlNews+"/image/"+i.idNews;
      return i;})}
-/*for(let i of res){
-      
-      this.url= environment.UrlNews+"/image/"+i.idNews;
-      console.log()
-}*/
- 
-     // console.log(res)
      this.dataSource.data=res
       this.dataSource.paginator=this.paginator
+      this.dataSource.paginator._intl.itemsPerPageLabel='Eléments par page'
+      this.dataSource.paginator._intl.getRangeLabel=this.dutchRangeLabel
+
     })
   }
 
@@ -74,6 +89,7 @@ export class NewsComponent implements OnInit {
     for(let i of this.dataSource.data){
       if (i.idNews==index){
         this.new=i
+        this.image=environment.UrlNews+"/image/"+i.idNews
       }
     }
   }
@@ -86,5 +102,6 @@ export class NewsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
 }

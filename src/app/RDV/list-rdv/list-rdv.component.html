@@ -17,13 +17,18 @@
         <!-- Position Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> # </th>
-          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.position}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.dateRdv | date:"dd/MM/yyyy"}} </td>
         </ng-container>
     
         <!-- Name Column -->
         <ng-container matColumnDef="patient">
           <th mat-header-cell *matHeaderCellDef> Patient </th>
-          <td mat-cell *matCellDef="let element"> {{element.nom}} {{element.prenom}}
+          <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.nom}} {{element.prenom}}
               <span class="m-1" *ngIf="!element.isExpanded"><i class="bi bi-caret-down-fill"></i></span>
               <span class="m-1" *ngIf="element.isExpanded "><i class="bi bi-caret-up-fill"></i></span>
             </td>
@@ -31,12 +36,21 @@
     
         <!-- Weight Column -->
         <ng-container matColumnDef="contact patient">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length-1">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
             <div class="example-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
                 <span class="expanded-contents"> 
-                    tel : {{element.numeroTel}} <br> 
-                    email: {{element.email}}  <br>
-                    date de naissance: {{element.dateNaissance}}
+                    <tr>
+                      <td style="width: 150px;">Téléphone    </td>
+                      <td> {{element.numeroTel}}</td>
+                    </tr>
+                    <tr>
+                      <td style="width: 150px;">Email   </td>
+                      <td> {{element.email}}</td>
+                    </tr>
+                    <tr>
+                      <td style="width: 150px;">Date de naissance  </td>
+                      <td> {{element.dateNaissance}}</td>
+                    </tr>
                 </span>
             </div>
         </td>
@@ -44,41 +58,38 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="medecin">
-            <th mat-header-cell *matHeaderCellDef> Medecin </th>
-            <td mat-cell *matCellDef="let element"> {{element.nomMedecin}}  </td>
+            <th mat-header-cell *matHeaderCellDef> Médecin </th>
+    <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.nomMedecin}}  </td>
           </ng-container>
     
         <!-- Symbol Column -->
         <ng-container matColumnDef="spécialité">
           <th mat-header-cell *matHeaderCellDef> Spécialité </th>
-          <td mat-cell *matCellDef="let element"> {{element.specialite}} </td>
+          <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.specialite}} </td>
         </ng-container>
 
         <ng-container matColumnDef="service">
             <th mat-header-cell *matHeaderCellDef> Service </th>
-            <td mat-cell *matCellDef="let element"> {{element.serviceId}} </td>
+            <td mat-cell *matCellDef="let element" class="rowaffiche"> {{element.serviceId}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> date </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateRdv}} </td>
-          </ng-container>
+         
 
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element" class="fw-bold" [style.color]="getcolor(element)">
+            <th mat-header-cell *matHeaderCellDef> Statut </th>
+            <td mat-cell *matCellDef="let element" class="fw-bold" [style.color]="getcolor(element)" class="rowaffiche">
                 
-                <i *ngIf="element.status == 'confirme'" class="bi bi-check-circle" style="font-size:20px;"></i>
+                <i *ngIf="element.status == 'Confirmé'" class="bi bi-check-circle" style="font-size:20px;"></i>
                
                
-                <i  *ngIf="element.status == 'En cours'"class="bi bi-hourglass-split" style="font-size:20px;"></i>
-                <i *ngIf="element.status == 'annuler'" class="bi bi-x-circle-fill" style="font-size:20px;"></i>
+                <i  *ngIf="element.status == 'Encours'"class="bi bi-hourglass-split" style="font-size:20px;"></i>
+                <i *ngIf="element.status == 'Annulé'" class="bi bi-x-circle-fill" style="font-size:20px;"></i>
             </td>  
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element" class="fw-bold" >
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element" class="fw-bold rowaffiche" style="padding-top: 5px;">
                 
                 <button class="btn btn-success btn-sm m-1" data-bs-toggle="modal" data-bs-target="#verticalycentered1" (click)="getRdv(element)" >
                     <i class="bi bi-check2"></i>
@@ -109,19 +120,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="color: #103073;">Confirmer un Rendez-Vous</h5>
+          <h5 class="modal-title" style="color: #103073;">Confirmer un rendez-Vous</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Etes-vous sur de Confirmer le rendez-vous?
+          Etes-vous sûr de confirmer le rendez-vous?
         <div class="col-md-12">
-            <label for="inputName6" class="form-label">Message à envoyer au patient</label>
+            <label for="inputName6" class="form-label">Message :</label>
             <textarea class="form-control" placeholder="Address" id="floatingTextarea" [(ngModel)]="descriptionConfirmation" style="height: 100px;"></textarea>
           </div>
           </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
-          <button type="button" class="btn btn-primary" style="background-color: #103073; border-color: #103073;" data-bs-dismiss="modal" (click)="confirmer()" >Oui</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="confirmer()" >Confirmer</button>
         </div>
       </div>
     </div>
@@ -133,20 +144,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="color: #103073;">Annuler</h5>
+          <h5 class="modal-title" style="color: #103073;">Annuler un rendez-Vous</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Etes-vous sur d'annuler le rendez-vous?
+          Etes-vous sûr d'annuler le rendez-vous?
         <div class="col-md-10 m-2">
-            <label for="inputName7" class="form-label">Message à envoyer au patient</label>
+            <label for="inputName7" class="form-label">Message :</label>
             <textarea class="form-control" placeholder="Address" id="floatingTextarea1" [(ngModel)]="descriptionAnnuler" style="height: 100px;"></textarea>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
-          <button type="button" class="btn btn-primary" style="background-color: #103073; border-color: #103073;" data-bs-dismiss="modal" (click)="annuler()" >Oui</button>
-        </div>
+          <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>-->
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="annuler()" >Annuler</button></div>
       </div>
     </div>
   </div>

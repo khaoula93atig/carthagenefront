@@ -33,6 +33,9 @@ import { StatusRdvComponent } from './RDV/status-rdv/status-rdv.component';
 import {MatIconModule} from '@angular/material/icon'
 import{JwtInterceptor} from './login/jwt.interceptor';
 import { HadComponent } from './HAD/had/had.component'
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 
@@ -69,11 +72,15 @@ import { HadComponent } from './HAD/had/had.component'
     MatInputModule,
     MatCardModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule,
+    MatButtonModule,
+    
     
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+   
   ],
   bootstrap: [AppComponent]
 })

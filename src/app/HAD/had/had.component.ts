@@ -25,7 +25,7 @@ export class HadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Had>
-  displayedColumns = ['id', 'patient', 'service', 'date', 'status', 'action'];
+  displayedColumns = ['id', 'date', 'patient', 'service', 'status', 'action'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement: HadService | null;
 
@@ -35,6 +35,20 @@ export class HadComponent implements OnInit {
 
   descriptionConfirmation = " "
   descriptionAnnuler=" "
+  francaisRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length == 0 || pageSize == 0) { return `0 de ${length}`; }
+    
+    length = Math.max(length, 0);
+  
+    const startIndex = page * pageSize;
+  
+    // If the start index exceeds the list length, do not try and fix the end index to the end.
+    const endIndex = startIndex < length ?
+        Math.min(startIndex + pageSize, length) :
+        startIndex + pageSize;
+  
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  }
 
   constructor(private hadService:HadService,
     private toastr:ToastrService) {
@@ -53,6 +67,8 @@ export class HadComponent implements OnInit {
         return i})}
       this.dataSource.data=res;
       this.dataSource.paginator=this.paginator
+      this.dataSource.paginator._intl.itemsPerPageLabel='Eléments par page'
+      this.dataSource.paginator._intl.getRangeLabel=this.francaisRangeLabel
     })
   }
 
@@ -65,14 +81,14 @@ export class HadComponent implements OnInit {
     }
     console.log(this.had)
     this.descriptionConfirmation='le Rendez-Vous avec le docteur x est confirmé '+'pour le '+this.had.creationDate
-    this.descriptionAnnuler='Désolé cette date est complet '
+    this.descriptionAnnuler='Cette date n’est pas disponible, on vous propose la date ..'
     
   }
 
   confirmer(){
     console.log(this.idHad, this.descriptionConfirmation)
     
-    this.hadService.changeStatus(this.idHad,"confirmer",this.descriptionConfirmation).subscribe(data=>{
+    this.hadService.changeStatus(this.idHad,"Confirmé",this.descriptionConfirmation).subscribe(data=>{
       if(data["response"]=="OK"){
         this.ngOnInit()
         this.toastr.success('Success', 'Confirmation envoyée');
@@ -88,7 +104,7 @@ export class HadComponent implements OnInit {
 
   annuler(){
     console.log(this.idHad , this.descriptionAnnuler)
-    this.hadService.changeStatus(this.idHad,"annuler",this.descriptionAnnuler).subscribe(data=>
+    this.hadService.changeStatus(this.idHad,"Annulé",this.descriptionAnnuler).subscribe(data=>
       {
         if(data["response"]=="OK"){
           this.ngOnInit()
@@ -113,14 +129,14 @@ export class HadComponent implements OnInit {
 
   getcolor(aff)
   {
-    if (aff.status == "En cours") {
+    if (aff.status == "Encours") {
       return '#103073';
     }
-    else if(aff.status == "confirmer"){
+    else if(aff.status == "Confirmé"){
       return 'green'
     }
 
-    else if(aff.status == "annuler"){
+    else if(aff.status == "Annulé"){
       return 'red'
     }
   }

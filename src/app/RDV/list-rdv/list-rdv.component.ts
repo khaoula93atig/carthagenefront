@@ -26,7 +26,7 @@ export class ListRdvComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<RendezVous>
-  displayedColumns = ['id', 'patient', 'medecin', 'spécialité', 'service', 'date','status', 'action'];
+  displayedColumns = ['id', 'date', 'patient', 'medecin', 'service', 'spécialité','status', 'action'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement: RdvService | null;
 
@@ -37,6 +37,20 @@ export class ListRdvComponent implements OnInit {
   rendezVous:RendezVous[]=[]
   idRdv=''
   rdv=new RendezVous()
+  francaisRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length == 0 || pageSize == 0) { return `0 de ${length}`; }
+    
+    length = Math.max(length, 0);
+  
+    const startIndex = page * pageSize;
+  
+    // If the start index exceeds the list length, do not try and fix the end index to the end.
+    const endIndex = startIndex < length ?
+        Math.min(startIndex + pageSize, length) :
+        startIndex + pageSize;
+  
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  }
 
   constructor(private rdvService:RdvService,
     private medecinService: MedecinService,
@@ -69,6 +83,8 @@ export class ListRdvComponent implements OnInit {
         return i})}
       this.dataSource.data=res;
       this.dataSource.paginator=this.paginator
+      this.dataSource.paginator._intl.itemsPerPageLabel='Eléments par page'
+      this.dataSource.paginator._intl.getRangeLabel=this.francaisRangeLabel
       for(let cat of this.dataSource.data){
 
         switch(cat.serviceId) { 
@@ -101,14 +117,14 @@ export class ListRdvComponent implements OnInit {
 
   getcolor(aff)
   {
-    if (aff.status == "En cours") {
+    if (aff.status == "encours") {
       return '#103073';
     }
-    else if(aff.status == "confirme"){
+    else if(aff.status == "Confirmé"){
       return 'green'
     }
 
-    else if(aff.status == "annuler"){
+    else if(aff.status == "Annulé"){
       return 'red'
     }
   }
@@ -116,14 +132,14 @@ export class ListRdvComponent implements OnInit {
   confirmer(){
     console.log(this.idRdv , this.descriptionConfirmation)
     
-    this.rdvService.changeStatus(this.idRdv,"confirme",this.descriptionConfirmation).subscribe(data=>{
+    this.rdvService.changeStatus(this.idRdv,"Confirmé",this.descriptionConfirmation).subscribe(data=>{
       if(data["response"]=="OK"){
         this.ngOnInit()
         this.toastr.success('Success', 'Confirmation envoyée');
         this.descriptionConfirmation=''
       }
       else{
-        this.toastr.error('Error', 'operation echouée');
+        this.toastr.error('Error', 'Operation echouée');
       }
       
     }
@@ -131,7 +147,7 @@ export class ListRdvComponent implements OnInit {
   }
   annuler(){
     console.log(this.idRdv , this.descriptionAnnuler)
-    this.rdvService.changeStatus(this.idRdv,"annuler",this.descriptionAnnuler).subscribe(data=>
+    this.rdvService.changeStatus(this.idRdv,"Annulé",this.descriptionAnnuler).subscribe(data=>
       {
         if(data["response"]=="OK"){
           this.ngOnInit()
@@ -153,7 +169,7 @@ export class ListRdvComponent implements OnInit {
     }
     console.log(this.rdv)
     this.descriptionConfirmation='le Rendez-Vous avec le docteur x est confirmé '+'pour le '+this.rdv.creationDate
-    this.descriptionAnnuler='Désolé cette date est complet '
+    this.descriptionAnnuler='Cette date n’est pas disponible, on vous propose la date ..'
     
   }
   

@@ -2,3 +2,10 @@
     font-size: 14px;
     width: 100%;
   }
+  
+  .mat-cell{
+    padding-top: 10px;
+    padding-bottom: 0px;
+  }
+
+  

@@ -1,43 +1,55 @@
-<app-ajout-service></app-ajout-service>
-
 <!-- debut de la liste -->
-<div class="pagetitle">
-    <h1>Liste des services </h1>
-  </div><!-- End Page Title -->
-
-<div class="card">
-    <div class="card-body">
-
-      <div class="search-bar pull-right">
-        <form class="search-form d-flex align-items-center" method="POST" action="#">
-          <input type="text" name="query" placeholder="Filter" title="Enter search keyword" (keyup)="applyFilter($event)">
-        </form>
-      </div>
-    
-      <table mat-table class="table table-sm" [dataSource]="dataSource">
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> # </th>
-          <td mat-cell *matCellDef="let index = index"> {{index+1}} </td>
-        </ng-container>
-    
-        <!-- Name Column -->
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-        </ng-container>
-    
-        <!-- Weight Column -->
-        <ng-container matColumnDef="categorie">
-          <th mat-header-cell *matHeaderCellDef> Categorie </th>
-          <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
+<div class="row justify-content-between mt-3 mb-3">
+  <div class="pagetitle col-md-4">
+      <h1>Liste des services </h1>
+    </div><!-- End Page Title -->
+    <div class="col-md-4" >
+      <app-ajout-service class="pull-right" style="margin-right: 0;"></app-ajout-service>
     </div>
-    <mat-paginator [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
-</div>
+  </div>
+
+  <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+    <li class="nav-item flex-fill" role="presentation">
+      <button class="nav-link tablink w-100 active" (click)="getByCategoriesSerivces(1)" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Spécialités Médicales</button>
+    </li>
+    <li class="nav-item flex-fill" role="presentation">
+      <button class="nav-link tablink w-100" (click)="getByCategoriesSerivces(2)" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Spécialités chirurgicales</button>
+    </li>
+    <li class="nav-item flex-fill" role="presentation">
+      <button class="nav-link tablink w-100" (click)="getByCategoriesSerivces(3)" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact" aria-selected="false">Explorations fonctionnelles</button>
+    </li>
+  </ul>
+  <div class="tab-content pt-2" id="myTabjustifiedContent">
+    <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+      <div class="card">
+        <div class="card-body">
+    
+      <ul class="list-group list-group-flush table-striped" *ngFor="let element of dataSource.data ;let isOdd = odd;">
+        <li class="list-group-item" [ngClass]=" {'pair':isOdd}">{{element.description}}</li>
+      </ul>
+   
+        </div>
+    
+      </div>
+    </div>
+    <div class="tab-pane fade" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="card">
+        <div class="card-body">
+    
+      <ul class="list-group list-group-flush table-striped" *ngFor="let element of dataSource.data ;let isOdd = odd;">
+        <li class="list-group-item" [ngClass]=" {'pair':isOdd}">{{element.description}}</li>
+      </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="contact-justified" role="tabpanel" aria-labelledby="contact-tab">
+      <div class="card">
+        <div class="card-body">
+    
+      <ul class="list-group list-group-flush table-striped" *ngFor="let element of dataSource.data ;let isOdd = odd;">
+        <li class="list-group-item" [ngClass]=" {'pair':isOdd}">{{element.description}}</li>
+      </ul>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Default Tabs -->

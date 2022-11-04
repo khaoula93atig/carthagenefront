@@ -45,7 +45,6 @@ export class AjoutMedecinComponent implements OnInit {
   getbySpecilitesChirurgicalese(){
     this.specialiteService.ListeBySpecialiteMedicale(2).subscribe(res=>{
       this.specialitesChirurgicales=res;
-      console.log('test',this.specialitesChirurgicales)
      
     })
   }

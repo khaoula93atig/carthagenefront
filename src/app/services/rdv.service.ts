@@ -17,4 +17,7 @@ export class RdvService {
   public changeStatus(idRdv:string, status:string, description:string):Observable<any>{
     return this.http.put<any>(environment.UrlRendezVous+'/changeStatus/'+idRdv+'/'+status+'/'+description, observable)
   }
+  public getNewRdv(status:string):Observable<RendezVous[]>{
+    return this.http.get<RendezVous[]>(environment.UrlRendezVous+'/newRdv/'+status)
+  }
 }

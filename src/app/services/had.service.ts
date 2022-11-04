@@ -19,5 +19,9 @@ export class HadService {
     return this.http.put<any>(environment.URLhad+'/changeStatue/'+idHad+'/'+status+'/'+description, observable)
   }
 
+  public getNewhad(status:string):Observable<Had[]>{
+    return this.http.get<Had[]>(environment.URLhad+'/newHad/'+status)
+  }
+
 
 }

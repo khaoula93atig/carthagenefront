@@ -1,5 +1,5 @@
-<button type="button" style="background-color: #103073; border-color: #103073;" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#verticalycentered">
-  <i class="fa fa-plus" aria-hidden="true"></i> Ajout
+<button type="button" style="background-color: #103073; border-color: #103073;" class="btn btn-primary mb-3 m-0" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+  <i class="fa fa-plus" aria-hidden="true"></i> Ajouter un médecin
 </button>
 <div class="modal fade" id="verticalycentered" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -61,7 +61,7 @@
                 </div>
               </div>             
               <div class="text-center">
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="save(myForm)" [disabled]="!myForm.valid">Ajouter</button>
+                <button type="submit" class="btn btn-primary"  style="background-color: #103073; border-color: #103073;" data-bs-dismiss="modal" (click)="save(myForm)" [disabled]="!myForm.valid">Ajouter</button>
                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </form><!-- End Multi Columns Form -->

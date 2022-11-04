@@ -1,8 +1,14 @@
 .example-card {
-	max-width: 400px;
+	max-height: 25%;
 	margin-bottom: 8px;
   }
   .titre{
 	font-weight: bold;
 	color:  #103073;
   }
+  .img{
+	transition: transform 0.25s ease;
+  }
+  .img-news:hover{
+	cursor: zoom-in;
+	}
